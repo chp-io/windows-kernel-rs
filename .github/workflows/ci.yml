@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    paths-ignore: ['**.md']
+  pull_request:
+    paths-ignore: ['**.md']
+
+jobs:
+  Debug:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: Debug Build
+        shell: cmd
+        run: |
+          cd 02-hello-world/
+          cargo install --force cargo-make
+          cargo make sign
+      - name: Archive driver
+        uses: actions/upload-artifact@v3
+        with:
+          name: driver
+          path: 02-hello-world/target/debug/driver.sys
