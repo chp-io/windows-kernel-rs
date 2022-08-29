@@ -1,5 +1,6 @@
 [env]
-VC_BUILD_DIR="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat"
+# TODO: use `vswhere.exe -prerelease -latest -property installationPath`
+VC_BUILD_DIR="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
 
 [env.development]
 TARGET_PATH = "target/debug"
@@ -23,7 +24,7 @@ cargo b %BUILD_FLAGS%
 ignore_errors = true
 script = '''
 cd %TARGET_PATH%
-rename driver.dll driver.sys
+rename v02_hello_world.dll driver.sys
 '''
 
 [tasks.sign]
