@@ -5,6 +5,8 @@ use winapi::km::wdm::{DbgPrint, DRIVER_OBJECT};
 use winapi::shared::ntdef::{NTSTATUS, UNICODE_STRING};
 use winapi::shared::ntstatus::STATUS_SUCCESS;
 
+use x86_64::registers::model_specific::Efer;
+
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
@@ -14,6 +16,9 @@ fn panic(_info: &PanicInfo) -> ! {
 pub extern "system" fn driver_entry(driver: &mut DRIVER_OBJECT, _: &UNICODE_STRING) -> NTSTATUS {
     unsafe {
         DbgPrint("Hello, world!\0".as_ptr());
+
+        let efer = Efer::read();
+        DbgPrint("Efer %d\0".as_ptr() as _, efer.bits());
     }
 
     driver.DriverUnload = Some(driver_exit);

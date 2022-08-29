@@ -1,5 +1,5 @@
 [package]
-name = "02-hello-world"
+name = "v02-hello-world"
 version = "0.1.0"
 edition = "2018"
 
@@ -15,6 +15,10 @@ panic = "abort"
 
 [build-dependencies]
 windows-kernel-build = { path = "../windows-kernel-build" }
+
+[dependencies]
+# x86_64 = { version = "0.14.10", default-features = false, features = ["instructions"] }
+x86_64 = "0.14.10"
 
 [dependencies.winapi]
 git = "https://github.com/Trantect/winapi-rs.git"
